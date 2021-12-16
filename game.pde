@@ -11,6 +11,7 @@ strokeWeight(3);
 }
 
 void draw(){
+controls(); // update coordinates
 
 background(color(0,0,0));  //background of maze
 playerVision(playerX,playerY,100); // what player can see
