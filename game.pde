@@ -38,12 +38,12 @@ circle(x, y, size); //shadow of player
 void controls(){
  if (keyPressed && (key == CODED)) 
   if (keyCode == UP)   
-    y--;
+    playerY--;
   else if (keyCode == DOWN) 
-    y++;
+    playerY++;
   else if (keyCode == RIGHT) 
-    x++;  
+    playerX++;  
   else if (keyCode == LEFT) 
-    x--;
+    playerX--;
 };
 
