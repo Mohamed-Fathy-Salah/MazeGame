@@ -36,6 +36,14 @@ circle(x, y, size); //shadow of player
 }
 // controls of player
 void controls(){
-
+ if (keyPressed && (key == CODED)) 
+  if (keyCode == UP)   
+    y--;
+  else if (keyCode == DOWN) 
+    y++;
+  else if (keyCode == RIGHT) 
+    x++;  
+  else if (keyCode == LEFT) 
+    x--;
 };
 
