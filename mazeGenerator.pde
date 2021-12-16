@@ -51,14 +51,38 @@ int[][] generateMaze(Integer n ,Integer openingX,Integer openingY){
         Pair<Integer,Integer> p = stack.pop(); 
         int curx = p.getKey() ,cury = p.getValue();
         shuffleArray(idx);   
-        int dirs = int(random(4));
+        //int dirs = int(random(2,3));
+        int dirs = 3;
         for(int k = 0;k<dirs;k++){
-            int newx = curx + dx[k] ,newy = cury + dy[k] ;
+            int newx = curx + dx[idx[k]] ,newy = cury + dy[idx[k]] ;
             if(newx <0 || newx >=n || newy <0 || newy >=n || matrix[newx][newy] == 1)continue;
             stack.push(new Pair<Integer,Integer>(newx,newy));
             matrix[newx][newy] = matrix[(newx+curx)>>1][(newy+cury)>>1] = 1;
         } 
     }
-    print(matrix);
+    stack.push(new Pair<Integer,Integer>(x_,y_));
+    while(!stack.isEmpty()){
+      Pair<Integer,Integer> p = stack.pop(); 
+        int curx = p.getKey() ,cury = p.getValue();
+        if(matrix[curx][cury] == 1)break;
+        matrix[curx][cury] = 1;
+        shuffleArray(idx);   
+        //int dirs = int(random(2,3));
+        int dirs = 3;
+        for(int k = 0;k<dirs;k++){
+            int newx = curx + dx[idx[k]] ,newy = cury + dy[idx[k]] ;
+            if(newx <0 || newx >=n || newy <0 || newy >=n)continue;
+            stack.push(new Pair<Integer,Integer>(newx,newy));
+            matrix[(newx+curx)>>1][(newy+cury)>>1] = 1;
+        } 
+    }
+    for(int i = 0 ;i<n;i++){
+      for(int j = 0 ;j<n;j++)print(matrix[i][j]);
+      print('\n');
+    }
     return matrix;
+}
+
+void setup(){
+  generateMaze(9,OPENING_X_RIGHT + OPENING_X_LEFT,OPENING_Y_DOWN+OPENING_Y_UP);
 }
