@@ -1,4 +1,6 @@
+
 class HardPlayer{
+ 
     int diameter = 15,radius = diameter/2,x=radius,y=radius,visionSize=7;
     
     HardPlayer(){}
@@ -23,6 +25,8 @@ class HardPlayer{
         }
         if (keyPressed && key == ' ')
                  landmarks.add(new Pair<Integer,Integer>(x,y));
+       if (keyPressed && key == BACKSPACE)
+                 page = 0;               
     }
     
     void drawPlayer(){
