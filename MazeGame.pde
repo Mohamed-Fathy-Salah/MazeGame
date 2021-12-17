@@ -1,4 +1,4 @@
-int page = 0;
+ int page = 0;
 Home home = new Home(this);
 Button back = new Button(0,0,150,50,"back",0);
 HardPlayer hardPlayer = new HardPlayer() , easyPlayer = new EasyPlayer();
@@ -22,7 +22,6 @@ void draw() {
     
   }else if(page == 2){// hard
     //background(255);
-    
     hardPlayer.update();
     maze.draw();
     //back.update();
