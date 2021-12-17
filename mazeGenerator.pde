@@ -84,10 +84,10 @@ class Maze{
                 matrix[(newx+curx)>>1][(newy+cury)>>1] = 1;
             } 
         }
-        for(int i = 0 ;i<n;i++){
-            for(int j = 0 ;j<n;j++)print(matrix[i][j]);
-            print('\n');
-        }
+        //for(int i = 0 ;i<n;i++){
+        //    for(int j = 0 ;j<n;j++)print(matrix[i][j]);
+        //    print('\n');
+        //}
     }
     boolean valid(int nx,int ny){
       return nx>=0 && nx<width && ny >=0 && ny<height;

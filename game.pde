@@ -1,12 +1,13 @@
 class HardPlayer{
-    int diameter = 15,radius = diameter/2,x=radius,y=radius,visionSize=200;
+    int diameter = 15,radius = diameter/2,x=radius,y=radius,visionSize=7;
     
     HardPlayer(){}
     void playerVision(){
         background(0);  //background of maze
-        fill(255,255,255,200); // shadow of player
-        //fill(200);
-        circle(this.x, this.y, visionSize); //shadow of player
+        for(int i = 0 ;i< 50;i++){
+          fill(255,255,255,255 - i*5); // shadow of player
+          circle(this.x, this.y, visionSize*i); //shadow of player
+        }
     }
     
     void playerControls(){
