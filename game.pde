@@ -12,13 +12,13 @@ class HardPlayer{
     
     void playerControls(){
         if (keyPressed && (key == CODED)){ 
-            if (keyCode == UP && maze.valid(x+radius,y-1-radius)&& maze.valid(x-radius,y-1-radius) && maze.matrix[(x+radius)/20][(y-1-radius)/20] == 1 && maze.matrix[(x-radius)/20][(y-1-radius)/20] == 1)   
+            if (keyCode == UP && maze.validX(x,y-1,-radius))   
                 this.y--;
-            else if (keyCode == DOWN  && maze.valid(x+radius,y+1+radius) && maze.valid(x-radius,y+1+radius)&& maze.matrix[(x+radius)/20][(y+1+radius)/20] == 1 && maze.matrix[(x-radius)/20][(y+1+radius)/20] == 1) 
+            else if (keyCode == DOWN  && maze.validX(x,y+1,radius)) 
                 this.y++;
-            if (keyCode == RIGHT && maze.valid(x+1+radius,y+radius)&& maze.valid(x+1+radius,y-radius)&& maze.matrix[(x+1+radius)/20][(y+radius)/20] == 1&& maze.matrix[(x+1+radius)/20][(y-radius)/20] == 1) 
+            if (keyCode == RIGHT && maze.validY(x+1,y,radius)) 
                 this.x++;  
-            else if (keyCode == LEFT  &&maze.valid(x-1-radius,y+radius)&&maze.valid(x-1-radius,y-radius)&& maze.matrix[(x-1-radius)/20][(y+radius)/20] == 1&& maze.matrix[(x-1-radius)/20][(y-radius)/20] == 1) 
+            else if (keyCode == LEFT &&maze.validY(x-1,y,-radius)) 
                 this.x--;
         }
         if (keyPressed && key == ' ')
