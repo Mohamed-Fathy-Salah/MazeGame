@@ -89,9 +89,9 @@ class Maze{
         //    print('\n');
         //}
     }
-    boolean valid(int nx,int ny){
-      return nx>=0 && nx<width && ny >=0 && ny<height;
-    }
+    // boolean valid(int nx,int ny){
+    //   return nx>=0 && nx<width && ny >=0 && ny<height;
+    // }
     
     boolean validX(int nx,int ny,int radius){
       return nx+abs(radius) < width && nx-abs(radius) >=0 && ny+radius>=0 && ny+radius<height 
