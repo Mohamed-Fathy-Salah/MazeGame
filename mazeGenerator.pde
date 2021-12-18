@@ -2,7 +2,7 @@ import java.util.Stack;
 import javafx.util.Pair;
 
 class Maze{
-    int n,side;
+    int x , y , x_, y_ , n,side = 20;  
     int OPENING_X_LEFT = 1;
     int OPENING_X_RIGHT = 2;
     int OPENING_Y_UP = 1;
@@ -10,7 +10,6 @@ class Maze{
     
     int[][] matrix;
     Maze(int n){
-    this.side = 20;
        this . n  = n;
        generateMaze(1,1);
     }
@@ -23,10 +22,10 @@ class Maze{
         }
     }
     void generateMaze(int openingX,int openingY){
+        x = y = 0;
+        x_= y_= n-1;
         matrix = new int [n][n];
-        
-        int x = 0 , y = 0 , x_ = n-1, y_ = n-1;
-         
+ 
         if((openingX & OPENING_X_LEFT)== OPENING_X_LEFT){
             // center x
             if((openingX & OPENING_X_RIGHT)== OPENING_X_RIGHT)x = n>>1;
@@ -116,5 +115,6 @@ class Maze{
         }
         fill(0,255,0);
         rect((n-1)*side , (n-1) * side , side , side);
+        
     }
 }

@@ -16,8 +16,9 @@ void draw() {
     home.homeDraw();
   }else if(page == 1){ // easy
     background(255);
-    maze.draw();
     easyPlayer.update();
+    maze.draw();
+    
     //back.update();
     
   }else if(page == 2){// hard
