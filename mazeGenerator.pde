@@ -20,6 +20,7 @@ class Maze{
             arr[idx] = tmp;
         }
     }
+
     public void generateMaze(){
       int openingX = int(random(1,4)),openingY = int(random(1,4)); // start at random places
         x = y = 0;
