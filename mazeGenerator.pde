@@ -11,7 +11,6 @@ class Maze{
     int[][] matrix;
     Maze(int n){
        this . n  = n;
-       generateMaze(1,1);
     }
     private void shuffleArray(int[] arr){
         for(int i = arr.length - 1 ;i > 0;i--){
@@ -21,11 +20,13 @@ class Maze{
             arr[idx] = tmp;
         }
     }
-    void generateMaze(int openingX,int openingY){
+
+    public void generateMaze(){
+      int openingX = int(random(1,4)),openingY = int(random(1,4)); // start at random places
         x = y = 0;
         x_= y_= n-1;
         matrix = new int [n][n];
- 
+       
         if((openingX & OPENING_X_LEFT)== OPENING_X_LEFT){
             // center x
             if((openingX & OPENING_X_RIGHT)== OPENING_X_RIGHT)x = n>>1;
@@ -111,10 +112,11 @@ class Maze{
         //TODO: bynzel ta7taha
         fill(0); //player
         for(Pair<Integer,Integer> landmark:landmarks){
-          circle(landmark.getKey(),landmark.getValue(), hardPlayer.diameter);  //player
+          circle(landmark.getKey(),landmark.getValue(), player.diameter);  //player
         }
+        // the end
         fill(0,255,0);
-        rect((n-1)*side , (n-1) * side , side , side);
+        rect(x_*side , y_ * side , side , side);
         
     }
 }
