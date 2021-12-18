@@ -1,7 +1,7 @@
 
 class HardPlayer{
  
-    int diameter = 15,radius = diameter/2,x=radius,y=radius,visionSize=7;
+    int diameter = 15,radius = diameter/2,x=maze.x * maze.side +radius,y=maze.y * maze.side+radius,visionSize=7;
     
     HardPlayer(){}
     void playerVision(){      
