@@ -32,7 +32,8 @@ class HardPlayer{
         if (keyPressed && key == ' ')
                  landmarks.add(new Pair<Integer,Integer>(x,y));
        if (keyPressed && key == BACKSPACE)
-                 page = 0;               
+                 page = 0;  
+        
     }
     
     void drawPlayer(){
@@ -43,6 +44,11 @@ class HardPlayer{
       playerControls();
       playerVision();
       drawPlayer();
+      if(maze.win(x,y)){
+          winTime = millis() + 2500;
+          x=radius;
+          y=radius;
+        }
     }
 }
 class EasyPlayer extends HardPlayer{

@@ -1,6 +1,5 @@
-int page = 0;
+int page = 0, winTime = -1, loseTime = -1;
 Home home = new Home(this);
-Button back = new Button(0,0,150,50,"back",0);
 Maze maze = new Maze(30);
 
 HardPlayer player;
@@ -13,24 +12,35 @@ void setup() {
 
 void draw() {
   if(page == 0){
-    //surface.setSize(600,600);
     home.homeDraw();
     if(page !=0 ){
       maze.generateMaze();
       if(page == 1)player = new EasyPlayer();
-      else player = new HardPlayer();
+      else {
+        player = new HardPlayer();
+        loseTime =  millis() + 5000;
+      }
     }
   }else if(page == 1){ // easy
     background(255);
     player.update();
-    maze.draw();
-    
-    //back.update();
-    
+    maze.draw();  
   }else if(page == 2){// hard
-    //background(255);
     player.update();
     maze.draw();
-    //back.update();
+  }
+  if( millis() < winTime ){
+    page = 0;
+    textSize(102);
+    background(255);
+    fill(0,255,0);
+    text("WIN",300-(textWidth("WIN")/2),320);
+  }
+  if( millis() > loseTime &&  millis() < loseTime + 2500){
+    page = 0;
+    textSize(102);
+    background(255);
+    fill(255,0,0);
+    text("GameOver",300-(textWidth("GameOver")/2),320);
   }
 }
