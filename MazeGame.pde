@@ -1,4 +1,4 @@
-int page = 0, winTime = -1, loseTime = -1;
+int page = 0, winTime = -1, loseTime = -100000;
 Home home = new Home(this);
 Maze maze = new Maze(30);
 
