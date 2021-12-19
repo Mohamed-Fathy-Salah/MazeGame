@@ -1,9 +1,10 @@
-import gifAnimation.*;
+//import gifAnimation.*;
 
 class Home {
   
   PImage mazeText, gameText;
-  Gif myAnimation;
+  PImage[] GIF;
+  //Gif myAnimation;
   PFont modeFont, bFont;
   PApplet main;
   Button easy, hard;
@@ -15,8 +16,15 @@ class Home {
   void homeSetUp(){
     modeFont = createFont("Arial Bold", 64);
     bFont = createFont("Arial",24);
+    String dataPath =dataPath("");
+    GIF = new PImage[180];
+    for(int i=0;i<180;i++){
+        GIF[i] = loadImage(dataPath+"\\backGround-"+i+".png");
+    }
+   /*
     myAnimation = new Gif(main, "backGround.gif");
     myAnimation.play();
+    */
     mazeText = loadImage("maze.png");
     gameText = loadImage("game.png");
     easy = new Button(225,400,150,50,"Easy",1);
@@ -24,7 +32,10 @@ class Home {
 
   }
   void homeDraw(){
-    image(myAnimation, 0, 0, 600, 600);
+   
+    GIF[frameCount%180].resize(600, 600);
+    image( GIF[frameCount%180], 0, 0);
+    //image(myAnimation, 0, 0, 600, 600);
     image(mazeText, 140, 70);
     image(gameText, 133, 70+85);
     fill(0);
