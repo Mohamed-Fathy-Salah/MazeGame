@@ -1,12 +1,13 @@
-int page = 0, winTime = -1, loseTime = -100000;
-Home home = new Home(this);
-Maze maze = new Maze(30);
+int page = 0, winTime = -1, loseTime = -100000, MAX_LANDMARKS = 5;
+Home home = new Home();
+Maze maze = new Maze();
 
 HardPlayer player;
-ArrayList<Pair<Integer,Integer>> landmarks = new ArrayList<Pair<Integer,Integer>>();
+ArrayList<Pair<Integer,Integer>> landmarks = new ArrayList<Pair<Integer,Integer>>(MAX_LANDMARKS);
 
 void setup() {
-  size(600,600);
+  size(600,600); //<>//
+  frameRate(30);
   home.homeSetUp();
 }
 

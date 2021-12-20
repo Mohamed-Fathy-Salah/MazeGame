@@ -1,9 +1,16 @@
 
 class HardPlayer{
  
-    int diameter = 15,radius = diameter/2,x=maze.x * maze.side +radius,y=maze.y * maze.side+radius,visionSize=7;
+    int diameter ,radius,x,y,visionSize,speed;
     
-    HardPlayer(){}
+    HardPlayer(){
+      diameter = int(maze.side/1.5);
+      radius = diameter /2;
+      x=maze.x * maze.side +maze.side/2;
+      y=maze.y * maze.side +maze.side/2;
+      visionSize=7;
+      speed = 1;
+    }
     void playerVision(){      
         background(0);  //background of maze
         
@@ -21,15 +28,15 @@ class HardPlayer{
     void playerControls(){
         if (keyPressed && (key == CODED)){ 
             if (keyCode == UP && maze.validX(x,y-1,-radius))   
-                this.y--;
+                this.y-=speed;
             else if (keyCode == DOWN  && maze.validX(x,y+1,radius)) 
-                this.y++;
+                this.y+=speed;
             if (keyCode == RIGHT && maze.validY(x+1,y,radius)) 
-                this.x++;  
+                this.x+=speed;  
             else if (keyCode == LEFT &&maze.validY(x-1,y,-radius)) 
-                this.x--;
+                this.x-=speed;
         }
-        if (keyPressed && key == ' ')
+        if (keyPressed && key == ' ' && landmarks.size() < MAX_LANDMARKS)
                  landmarks.add(new Pair<Integer,Integer>(x,y));
        if (keyPressed && key == BACKSPACE)
                  page = 0;  
