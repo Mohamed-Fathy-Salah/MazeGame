@@ -6,20 +6,21 @@ class Home {
   PImage[] GIF;
   //Gif myAnimation;
   PFont modeFont, bFont;
-  PApplet main;
+  //PApplet main;
   Button easy, hard;
   
-  Home(PApplet input){
-    main = input;
-  }
-  
+  //Home(PApplet input){
+  //  main = input;
+  //}
+
   void homeSetUp(){
     modeFont = createFont("Arial Bold", 64);
     bFont = createFont("Arial",24);
     String dataPath =dataPath("");
     GIF = new PImage[180];
     for(int i=0;i<180;i++){
-        GIF[i] = loadImage(dataPath+"\\backGround-"+i+".png");
+        GIF[i] = loadImage(dataPath+"/backGround-"+i+".png");
+        GIF[i].resize(600,600);
     }
    /*
     myAnimation = new Gif(main, "backGround.gif");
@@ -32,8 +33,7 @@ class Home {
 
   }
   void homeDraw(){
-   
-    GIF[frameCount%180].resize(600, 600);
+    //GIF[frameCount%180].resize(600, 600);
     image( GIF[frameCount%180], 0, 0);
     //image(myAnimation, 0, 0, 600, 600);
     image(mazeText, 140, 70);

@@ -2,15 +2,20 @@ import java.util.Stack;
 import javafx.util.Pair;
 
 class Maze{
-    int x , y , x_, y_ , n,side = 20;  
+    int x , y , x_, y_ , n,side;  
     int OPENING_X_LEFT = 1;
     int OPENING_X_RIGHT = 2;
     int OPENING_Y_UP = 1;
     int OPENING_Y_DOWN = 2;
     
     int[][] matrix;
-    Maze(int n){
-       this . n  = n;
+    Maze(int n,int side){
+       this.n = n;
+       this.side = side;
+    }
+    Maze(){
+      n = 30;
+      side = 20;
     }
     private void shuffleArray(int[] arr){
         for(int i = arr.length - 1 ;i > 0;i--){
