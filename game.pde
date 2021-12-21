@@ -1,4 +1,5 @@
 class HardPlayer{
+
     int diameter ,radius,x,y,visionSize,speed;
     
     HardPlayer(){
