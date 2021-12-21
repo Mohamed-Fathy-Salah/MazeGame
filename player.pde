@@ -1,6 +1,4 @@
-
 class HardPlayer{
- 
     int diameter ,radius,x,y,visionSize,speed;
     
     HardPlayer(){
@@ -9,14 +7,14 @@ class HardPlayer{
       x=maze.x * maze.side +maze.side/2;
       y=maze.y * maze.side +maze.side/2;
       visionSize=7;
-      speed = 1;
+      speed = 2;
     }
     void playerVision(){      
         background(0);  //background of maze
         
         for(int i = 0 ;i< 25;i++){
           fill(255,255,255,200 - i*5); // shadow of end
-          circle(maze.x_ * maze.side, maze.y_ * maze.side, 5*i); //shadow of end
+          circle(maze.x_ * maze.side + maze.side /2 , maze.y_ * maze.side +maze.side/2, 5*i); //shadow of end
         }
         
         for(int i = 0 ;i< 50;i++){
@@ -27,20 +25,17 @@ class HardPlayer{
     
     void playerControls(){
         if (keyPressed && (key == CODED)){ 
-            if (keyCode == UP && maze.validX(x,y-1,-radius))   
+            if (keyCode == UP && maze.validX(x,y-speed,-radius))   
                 this.y-=speed;
-            else if (keyCode == DOWN  && maze.validX(x,y+1,radius)) 
+            else if (keyCode == DOWN  && maze.validX(x,y+speed,radius)) 
                 this.y+=speed;
-            if (keyCode == RIGHT && maze.validY(x+1,y,radius)) 
+            if (keyCode == RIGHT && maze.validY(x+speed,y,radius)) 
                 this.x+=speed;  
-            else if (keyCode == LEFT &&maze.validY(x-1,y,-radius)) 
+            else if (keyCode == LEFT &&maze.validY(x-speed,y,-radius)) 
                 this.x-=speed;
         }
-        if (keyPressed && key == ' ' && landmarks.size() < MAX_LANDMARKS)
-                 landmarks.add(new Pair<Integer,Integer>(x,y));
-       if (keyPressed && key == BACKSPACE)
-                 page = 0;  
-        
+        if (key == ' ' && landmarks.size() < MAX_LANDMARKS)
+            landmarks.add(new Pair<Integer,Integer>(x,y));
     }
     
     void drawPlayer(){
