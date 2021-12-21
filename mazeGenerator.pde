@@ -89,18 +89,17 @@ class Maze{
                 matrix[(newx+curx)>>1][(newy+cury)>>1] = 1;
             } 
         }
-        //for(int i = 0 ;i<n;i++){
-        //    for(int j = 0 ;j<n;j++)print(matrix[i][j]);
-        //    print('\n');
-        //}
+        
+        for(int i = 0 ;i<15;i++){
+          matrix[int(random(0,n))][int(random(0,n))] =1;
+        }
     }
-    // boolean valid(int nx,int ny){
-    //   return nx>=0 && nx<width && ny >=0 && ny<height;
-    // }
+    
     boolean win(int x, int y){
       return x/20 == x_ && y/20 == y_;
     }
     boolean validX(int nx,int ny,int radius){
+     
       return nx+abs(radius) < width && nx-abs(radius) >=0 && ny+radius>=0 && ny+radius<height 
         && matrix[(nx+radius)/side][(ny+radius)/side] == 1 && maze.matrix[(nx-radius)/side][(ny+radius)/side] == 1 ;
     }
