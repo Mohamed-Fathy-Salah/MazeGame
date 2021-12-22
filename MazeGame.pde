@@ -5,7 +5,7 @@ int page = 0, winTime = -1, loseTime = -100000, MAX_LANDMARKS , remainingTime;
 Home home = new Home();
 Maze maze = new Maze();
 HardPlayer player;
-Button back = new Button(225,400,150,50,"Back",5);
+//Button back = new Button(225,400,150,50,"Back",5);
 Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
 
 void setup() {
@@ -49,7 +49,7 @@ void draw() {
     fill(255,0,0);
     text(Integer.toString(remainingTime) ,textWidth("time : ") + 20,635);
     text(Integer.toString(MAX_LANDMARKS - landmarks.size()) ,600-25,635);
-    if(frameCount % 30 == 0)remainingTime--;
+    if(frameCount % 30 == 0)remainingTime--; // every second
   }else if(page == 3){ //keys
     background(0);
     fill(255);
@@ -64,14 +64,14 @@ void draw() {
   if( millis() < winTime ){
     page = 0;
     textSize(102);
-    background(255);
+    background(0);
     fill(0,255,0);
     text("WIN",300-(textWidth("WIN")/2),320);
   }
   if( millis() > loseTime &&  millis() < loseTime + 2500){
     page = 0;
     textSize(102);
-    background(255);
+    background(0);
     fill(255,0,0);
     text("GameOver",300-(textWidth("GameOver")/2),320);
   }
