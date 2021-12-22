@@ -8,7 +8,7 @@ class HardPlayer{
       x=maze.x * maze.side +maze.side/2;
       y=maze.y * maze.side +maze.side/2;
       visionSize=7;
-      speed = 2;
+      speed = 3;
     }
     void playerVision(){      
         background(0);  //background of maze
@@ -40,14 +40,14 @@ class HardPlayer{
     }
     
     void drawPlayer(){
-    fill(255, 0, 0); //player
-    circle(x, y, diameter);  //player
+      fill(255, 0, 0); //player
+      circle(x, y, diameter);  //player
     }
     void update(){
       playerControls();
       playerVision();
       drawPlayer();
-      if(maze.win(x,y)){
+      if(maze.win()){
           winTime = millis() + 2500;
           x=radius;
           y=radius;
