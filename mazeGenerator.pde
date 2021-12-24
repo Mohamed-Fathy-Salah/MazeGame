@@ -107,6 +107,7 @@ class Maze{
             }
           }
         }
+        
         //landmarks
         fill(0); 
         for(Pair<Integer,Integer> landmark:landmarks)

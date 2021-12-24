@@ -8,7 +8,7 @@ class HardPlayer{
       x=maze.x * maze.side +maze.side/2;
       y=maze.y * maze.side +maze.side/2;
       visionSize=150;
-      speed = 2;
+      speed 
     }
     void playerVision(){
       // fog gradient
