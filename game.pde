@@ -7,21 +7,30 @@ class HardPlayer{
       radius = diameter /2;
       x=maze.x * maze.side +maze.side/2;
       y=maze.y * maze.side +maze.side/2;
-      visionSize=7;
-      speed = 3;
+      visionSize=150;
+      speed = 2;
     }
-    void playerVision(){      
-        background(0);  //background of maze
-        
-        for(int i = 0 ;i< 25;i++){
-          fill(255,255,255,200 - i*5); // shadow of end
-          circle(maze.x_ * maze.side + maze.side /2 , maze.y_ * maze.side +maze.side/2, 5*i); //shadow of end
-        }
-        
-        for(int i = 0 ;i< 50;i++){
-          fill(255,255,255,255 - i*5); // shadow of player
-          circle(this.x, this.y, visionSize*i); //shadow of player
-        }
+    void playerVision(){
+      // fog gradient
+      noFill();
+      strokeWeight(11);
+      for(int i = 0 ;i<125;i++){
+        stroke(0,i*2);
+        circle(x,y,visionSize*i/30);
+      }
+      
+      // fog boundries
+      noStroke();
+      
+      fill(0);
+      rect(0,0,width,y-visionSize);
+      rect(0,y+visionSize,width,width-y-visionSize);
+      rect(0,y-visionSize,x - visionSize,2*visionSize);
+      rect(x+visionSize,y-visionSize,width- x - visionSize,2*visionSize);
+      
+      // end
+      fill(0,255,0,200);
+      circle(maze.x_*maze.side + maze.side/2 , maze.y_ * maze.side + maze.side/2 , maze.side);
     }
     
     void playerControls(){
@@ -32,7 +41,7 @@ class HardPlayer{
                 this.y+=speed;
             if (keyCode == RIGHT && maze.validY(x+speed,y,radius)) 
                 this.x+=speed;  
-            else if (keyCode == LEFT &&maze.validY(x-speed,y,-radius)) 
+            else if (keyCode == LEFT && maze.validY(x-speed,y,-radius)) 
                 this.x-=speed;
         }
         if (key == ' ' && landmarks.size() < MAX_LANDMARKS)
@@ -40,6 +49,7 @@ class HardPlayer{
     }
     
     void drawPlayer(){
+      noStroke();
       fill(255, 0, 0); //player
       circle(x, y, diameter);  //player
     }
@@ -57,6 +67,8 @@ class HardPlayer{
 class EasyPlayer extends HardPlayer{
     @Override
         void playerVision(){
-          
+          // end
+          fill(0,255,0,200);
+          circle(maze.x_*maze.side + maze.side/2 , maze.y_ * maze.side + maze.side/2 , maze.side);
         }
 }

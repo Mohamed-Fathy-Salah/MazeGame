@@ -95,22 +95,21 @@ class Maze{
         && matrix[(nx+radius)/side][(ny+radius)/side] == 1 && maze.matrix[(nx+radius)/side][(ny-radius)/side] == 1 ;
     }
     void draw(){
-        fill(0);
+        noStroke();
         for(int i = 0 ;i<n;i++){
           for(int j = 0 ;j<n;j++){
-            if(matrix[i][j] == 0)
+            if(matrix[i][j] == 0){
+              fill(200,0,0);
               rect(i*side , j*side , side,side);
+            }else{
+              fill(0,0,200);
+              rect(i*side , j*side , side,side);
+            }
           }
         }
-        //TODO: bynzel ta7taha
         //landmarks
         fill(0); 
         for(Pair<Integer,Integer> landmark:landmarks)
           circle(landmark.getKey(),landmark.getValue(), player.diameter); 
-        
-        // the end
-        fill(0,255,0);
-        rect(x_*side , y_ * side , side , side);
-        
     }
 }

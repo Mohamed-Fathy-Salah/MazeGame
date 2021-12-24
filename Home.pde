@@ -2,13 +2,9 @@ class Home {
   
   PImage mazeText, gameText;
   PImage[] GIF;
-  //PFont modeFont, bFont;
   Button easy, hard , keys;
 
   void homeSetUp(){
-    //modeFont = createFont("Arial Bold",64);
-    //bFont = createFont("Arial",24);
-    
     String dataPath =dataPath("");
     String c = "\\";
     if(System.getProperty("os.name").contains("Linux")) c = "/";
@@ -30,10 +26,8 @@ class Home {
     image(mazeText, 140, 70);
     image(gameText, 133, 70+85);
     fill(0);
-    //textFont(modeFont);
     textSize(64);
     text("Mode",300-(textWidth("Mode")/2),380);
-    //textFont(bFont);
     textSize(24);
     easy.update(); 
     hard.update();
