@@ -34,12 +34,11 @@ void draw() {
       }
     }
   }else if(page == 1){ // easy
-    background(255);
-    player.update();
     maze.draw();
+    player.update();
   }else if(page == 2){ // hard
-    player.update();
     maze.draw();
+    player.update();
     
     fill(0);
     rect(0,600,600,50);

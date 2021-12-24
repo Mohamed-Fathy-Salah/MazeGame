@@ -34,6 +34,7 @@ class Button{
     press();
     fill(bColor);
     stroke(0);
+    strokeWeight(1);
     rect(xPos, yPos, bWidth, bHeight, 16);
     fill(labelColor);
     text(bLabel, xPos+bWidth/2-(textWidth(bLabel)/2), yPos+bHeight/2+(textAscent()/2)); 
