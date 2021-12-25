@@ -1,14 +1,17 @@
 class HardPlayer{
 
-    int diameter ,radius,x,y,visionSize,speed;
-    
+    int side,x,y,visionSize,speed;
+    PImage playerImage, end;
     HardPlayer(){
-      diameter = int(maze.side/1.5);
-      radius = diameter /2;
-      x=maze.x * maze.side +maze.side/2;
-      y=maze.y * maze.side +maze.side/2;
+      side = int(maze.side/1.5);
+      x=maze.x * maze.side;
+      y=maze.y * maze.side;
       visionSize=150;
       speed = 2;
+      playerImage = loadImage("playerFace_dark.png");
+      String seperator = "\\";
+      if(System.getProperty("os.name").contains("Linux")) seperator = "/";
+      end = loadImage("Crates"+seperator+"crate_45.png");
     }
     void playerVision(){
       // fog gradient
@@ -16,7 +19,7 @@ class HardPlayer{
       strokeWeight(11);
       for(int i = 0 ;i<125;i++){
         stroke(0,i*2);
-        circle(x,y,visionSize*i/30);
+        circle(x+side/2,y+side/2,visionSize*i/30);
       }
       
       // fog boundries
@@ -28,30 +31,36 @@ class HardPlayer{
       rect(0,y-visionSize,x - visionSize,2*visionSize);
       rect(x+visionSize,y-visionSize,width- x - visionSize,2*visionSize);
       
-      // end
-      fill(0,255,0,200);
-      circle(maze.x_*maze.side + maze.side/2 , maze.y_ * maze.side + maze.side/2 , maze.side);
+      drawEnd();
     }
-    
+    void drawEnd(){
+      pushMatrix();
+      translate(maze.x_*maze.side, maze.y_*maze.side);
+      scale(float(maze.side) / end.width);
+      image(end, 0,0);
+      popMatrix();
+    }
     void playerControls(){
         if (keyPressed && (key == CODED)){ 
-            if (keyCode == UP && maze.validX(x,y-speed,-radius))   
+            if (keyCode == UP && maze.valid(x,y-speed) && maze.valid(x+side , y-speed))   
                 this.y-=speed;
-            else if (keyCode == DOWN  && maze.validX(x,y+speed,radius)) 
+            else if (keyCode == DOWN  && maze.valid(x,y+side+speed) && maze.valid(x+side , y+side+speed)) 
                 this.y+=speed;
-            if (keyCode == RIGHT && maze.validY(x+speed,y,radius)) 
+            if (keyCode == RIGHT && maze.valid(x+side+speed,y) && maze.valid(x+side+speed , y+side)) 
                 this.x+=speed;  
-            else if (keyCode == LEFT && maze.validY(x-speed,y,-radius)) 
+            else if (keyCode == LEFT && maze.valid(x-speed,y) && maze.valid(x-speed , y+side)) 
                 this.x-=speed;
         }
         if (key == ' ' && landmarks.size() < MAX_LANDMARKS)
-            landmarks.add(new Pair<Integer,Integer>(x,y));
+            landmarks.add(new Pair<Integer,Integer>(x+side/2,y+side/2));
     }
     
     void drawPlayer(){
-      noStroke();
-      fill(255, 0, 0); //player
-      circle(x, y, diameter);  //player
+      pushMatrix();
+      translate(x,y);
+      scale(float(side) / playerImage.width);
+      image(playerImage,0,0);
+      popMatrix();
     }
     void update(){
       playerControls();
@@ -59,16 +68,12 @@ class HardPlayer{
       drawPlayer();
       if(maze.win()){
           winTime = millis() + 2500;
-          x=radius;
-          y=radius;
-        }
+      }
     }
 }
 class EasyPlayer extends HardPlayer{
     @Override
         void playerVision(){
-          // end
-          fill(0,255,0,200);
-          circle(maze.x_*maze.side + maze.side/2 , maze.y_ * maze.side + maze.side/2 , maze.side);
+          drawEnd();
         }
 }
