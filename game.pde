@@ -51,8 +51,13 @@ class HardPlayer{
             else if (keyCode == LEFT && maze.valid(x-speed,y) && maze.valid(x-speed , y+side)) 
                 this.x-=speed;
         }
-        if (key == ' ' && landmarks.size() < MAX_LANDMARKS)
+        int sizeFlag = landmarks.size();
+        if (keyPressed && key == ' ' && landmarks.size() < MAX_LANDMARKS)
             landmarks.add(new Pair<Integer,Integer>(x+side/2,y+side/2));
+
+        if (landmarks.size() != sizeFlag)
+            landmark_sound.play();
+    
     }
     
     void drawPlayer(){

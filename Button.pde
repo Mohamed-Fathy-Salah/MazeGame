@@ -27,6 +27,7 @@ class Button{
   void press() {
     if(mousePressed){
       if(hovered) page = iD;
+      click.play();
     }
   }
   void update(){

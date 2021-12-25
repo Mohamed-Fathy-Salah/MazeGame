@@ -1,5 +1,6 @@
 import java.util.Set;
 import java.util.HashSet;
+import processing.sound.*;
 
 int page = 0, winTime = -1, loseTime = -100000, MAX_LANDMARKS , remainingTime;
 Home home;
@@ -8,15 +9,26 @@ HardPlayer player;
 //Button back = new Button(225,400,150,50,"Back",5);
 Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
 
+SoundFile win_sound, back_sound, click, lose_sound, landmark_sound;
+
 void setup() {
   size(600,600); //<>//
   frameRate(30);
+  win_sound = new SoundFile(this, "cartoon_success_fanfair.wav");
+  win_sound.amp(0.5);
+  lose_sound = new SoundFile(this, "losing.wav");
+  lose_sound.amp(0.5);
+  landmark_sound = new SoundFile(this, "coin.wav");
+  back_sound = new SoundFile(this, "Fluffing-a-Duck.wav");
+  click = new SoundFile(this, "click.wav");
+  back_sound.play();
   home = new Home();
   home.homeSetUp();
   maze = new Maze(15,40);
 }
 
 void draw() {
+  
   if(page == 0){
     landmarks.clear();
     surface.setSize(600, 600);
@@ -35,7 +47,7 @@ void draw() {
         MAX_LANDMARKS = 5;
       }
     }
-  }else if(page == 1){ // easy
+  }else if(page == 1){ // easy 
     maze.draw();
     player.update();
   }else if(page == 2){ // hard
@@ -63,14 +75,17 @@ void draw() {
     text("BACK SPACE menu",(600 - textWidth("BACK SPACE menu"))/2,550);
   }
   if( millis() < winTime ){
+    win_sound.play();
     page = 0;
     textSize(102);
     background(0);
     fill(0,255,0);
     text("WIN",300-(textWidth("WIN")/2),320);
+    
   }
   if( millis() > loseTime &&  millis() < loseTime + 2500){
     page = 0;
+    lose_sound.play();
     textSize(102);
     background(0);
     fill(255,0,0);
