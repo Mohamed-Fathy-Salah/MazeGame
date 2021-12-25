@@ -2,8 +2,8 @@ import java.util.Set;
 import java.util.HashSet;
 
 int page = 0, winTime = -1, loseTime = -100000, MAX_LANDMARKS , remainingTime;
-Home home = new Home();
-Maze maze = new Maze();
+Home home;
+Maze maze;
 HardPlayer player;
 //Button back = new Button(225,400,150,50,"Back",5);
 Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
@@ -11,7 +11,9 @@ Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
 void setup() {
   size(600,600); //<>//
   frameRate(30);
+  home = new Home();
   home.homeSetUp();
+  maze = new Maze(15,40);
 }
 
 void draw() {

@@ -5,13 +5,12 @@ class Home {
   Button easy, hard , keys;
 
   void homeSetUp(){
-    String dataPath =dataPath("");
-    String c = "\\";
-    if(System.getProperty("os.name").contains("Linux")) c = "/";
+    String separator = "\\";
+    if(System.getProperty("os.name").contains("Linux")) separator = "/";
     GIF = new PImage[180];
     
     for(int i=0;i<180;i++){
-        GIF[i] = loadImage(dataPath+c+"backGround-"+i+".png");
+        GIF[i] = loadImage("BackGround"+separator+"backGround-"+i+".png");
         GIF[i].resize(600,600);
     }
  

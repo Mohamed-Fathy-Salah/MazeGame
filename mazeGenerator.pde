@@ -4,15 +4,19 @@ import javafx.util.Pair;
 class Maze{
     int x , y , x_, y_ , n,side;  
     int[][] matrix;
-    
+    PImage wall , ground ;
+    PApplet main;
     Maze(int n,int side){
        this.n = n;
        this.side = side;
+       String separator = "\\";
+       if(System.getProperty("os.name").contains("Linux")) separator = "/";
+       //wall = loadImage("Blocks"+seperator+"block_01.png");
+       wall = loadImage("Crates"+separator+"crate_16.png");
+       ground = loadImage("Ground"+separator+"ground_06.png");
     }
-    
     Maze(){
-      n = 30;
-      side = 20;
+      this(30,20);
     }
     
     private void shuffleArray(int[] arr){
@@ -86,31 +90,35 @@ class Maze{
     boolean win(){
       return player.x/side == x_ && player.y/side == y_;
     }
-    boolean validX(int nx,int ny,int radius){
-      return nx+abs(radius) < width && nx-abs(radius) >=0 && ny+radius>=0 && ny+radius<width 
-        && matrix[(nx+radius)/side][(ny+radius)/side] == 1 && maze.matrix[(nx-radius)/side][(ny+radius)/side] == 1 ;
+    boolean valid(int nx,int ny){
+      return nx>=0 && nx<width && ny>=0 && ny<width && matrix[nx/side][ny/side] == 1;
+    }
+    boolean validX(int nx,int ny,int diameter){
+      return nx+abs(diameter) < width && ny+diameter>=0 && ny+diameter<width 
+        && matrix[(nx+abs(diameter))/side][(ny+diameter)/side] == 1;
     }
     boolean validY(int nx,int ny,int radius){
       return ny+abs(radius) < width && ny-abs(radius) >=0 && nx+radius>=0 && nx+radius<width 
         && matrix[(nx+radius)/side][(ny+radius)/side] == 1 && maze.matrix[(nx+radius)/side][(ny-radius)/side] == 1 ;
     }
     void draw(){
-        noStroke();
+        //noStroke();
+        
+        
         for(int i = 0 ;i<n;i++){
           for(int j = 0 ;j<n;j++){
-            if(matrix[i][j] == 0){
-              fill(200,0,0);
-              rect(i*side , j*side , side,side);
-            }else{
-              fill(0,0,200);
-              rect(i*side , j*side , side,side);
-            }
+            pushMatrix();
+            translate(i*side, j*side);
+            scale(float(side) / wall.width);
+            image(matrix[i][j] == 0?wall:ground , 0,0);
+            popMatrix();
           }
         }
+        
         
         //landmarks
         fill(0); 
         for(Pair<Integer,Integer> landmark:landmarks)
-          circle(landmark.getKey(),landmark.getValue(), player.diameter); 
+          circle(landmark.getKey(),landmark.getValue(), player.side); 
     }
 }
