@@ -93,18 +93,8 @@ class Maze{
     boolean valid(int nx,int ny){
       return nx>=0 && nx<width && ny>=0 && ny<width && matrix[nx/side][ny/side] == 1;
     }
-    boolean validX(int nx,int ny,int diameter){
-      return nx+abs(diameter) < width && ny+diameter>=0 && ny+diameter<width 
-        && matrix[(nx+abs(diameter))/side][(ny+diameter)/side] == 1;
-    }
-    boolean validY(int nx,int ny,int radius){
-      return ny+abs(radius) < width && ny-abs(radius) >=0 && nx+radius>=0 && nx+radius<width 
-        && matrix[(nx+radius)/side][(ny+radius)/side] == 1 && maze.matrix[(nx+radius)/side][(ny-radius)/side] == 1 ;
-    }
+    
     void draw(){
-        //noStroke();
-        
-        
         for(int i = 0 ;i<n;i++){
           for(int j = 0 ;j<n;j++){
             pushMatrix();
