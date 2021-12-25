@@ -52,7 +52,7 @@ class HardPlayer{
                 this.x-=speed;
         }
         int sizeFlag = landmarks.size();
-        if (keyPressed && key == ' ' && landmarks.size() < MAX_LANDMARKS)
+        if (key == ' ' && landmarks.size() < MAX_LANDMARKS)
             landmarks.add(new Pair<Integer,Integer>(x+side/2,y+side/2));
 
         if (landmarks.size() != sizeFlag)
