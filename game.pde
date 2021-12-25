@@ -64,6 +64,21 @@ class HardPlayer{
       pushMatrix();
       translate(x,y);
       scale(float(side) / playerImage.width);
+      // rotating the player
+      if (keyCode == RIGHT){
+        translate(0,64);
+        rotate(radians(-90));
+      } 
+        
+      else if (keyCode == LEFT){
+        translate(64,0);
+        rotate(radians(90));
+      }
+        
+      else if (keyCode == UP){
+        translate(64,64);
+        rotate(radians(180));
+      }
       image(playerImage,0,0);
       popMatrix();
     }
