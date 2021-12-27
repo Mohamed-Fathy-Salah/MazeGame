@@ -1,6 +1,6 @@
 class HardPlayer{
 
-    int side,x,y,visionSize,speed,b1,b2,bombTime,bombCount=2;
+    int side,x,y,visionSize,speed,b1,b2,bombTime,bombCount;
     boolean isBomb=false;    
     PImage playerImage, end,bomb,boom;
     HardPlayer(){
@@ -65,6 +65,7 @@ class HardPlayer{
         if(key=='b' ||key=='B'){
             //maze.drawBomb(x,y);
             isBomb=true;
+            print(1);
             b1=(x+side/2);
             b2=(y+side/2);
             bombTime=millis();
@@ -96,13 +97,16 @@ class HardPlayer{
     void update(){
       playerControls();
       if(isBomb==true){
-         if( millis() < bombTime + 2000){
-             image(bomb,b1-13,b2-13,26,26);      
-         }
-         if( millis() > bombTime + 2000 && millis() < bombTime + 4000){
-             image(boom,b1-25,b2-25,50,50);      
-         }
-         
+        if(bombCount<65){
+           if( millis() < bombTime + 2000){
+               image(bomb,b1-13,b2-13,26,26);      
+           }
+           if( millis() > bombTime + 2000 && millis() < bombTime + 4000){
+               image(boom,b1-25,b2-25,50,50);      
+               bo++;
+               println(bo);
+           }
+        }
       }
       playerVision();
       drawPlayer();
