@@ -14,6 +14,7 @@ class Maze{
        //wall = loadImage("Blocks"+seperator+"block_01.png");
        wall = loadImage("Crates"+separator+"crate_16.png");
        ground = loadImage("Ground"+separator+"ground_06.png");
+      
     }
     Maze(){
       this(30,20);
@@ -84,7 +85,7 @@ class Maze{
         //random points convert to road
         for(int i = 0 ;i<10;i++)
           matrix[int(random(0,(n>>1) - 1))<<1][int(random(0,(n>>1) - 1))<<1] =1;
-        
+       
     }
     
     boolean win(){
@@ -93,6 +94,7 @@ class Maze{
     boolean valid(int nx,int ny){
       return nx>=0 && nx<width && ny>=0 && ny<width && matrix[nx/side][ny/side] == 1;
     }
+    
     
     void draw(){
         for(int i = 0 ;i<n;i++){
@@ -104,11 +106,13 @@ class Maze{
             popMatrix();
           }
         }
+
+
         
         
         //landmarks
         fill(0); 
         for(Pair<Integer,Integer> landmark:landmarks)
-          circle(landmark.getKey(),landmark.getValue(), player.side); 
-    }
+          circle(landmark.getKey(),landmark.getValue(), player.side);
+        }
 }

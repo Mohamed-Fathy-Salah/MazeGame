@@ -1,7 +1,8 @@
 class HardPlayer{
 
-    int side,x,y,visionSize,speed;
-    PImage playerImage, end;
+    int side,x,y,visionSize,speed,b1,b2,bombTime,bombCount=2;
+    boolean isBomb=false;    
+    PImage playerImage, end,bomb,boom;
     HardPlayer(){
       side = int(maze.side/1.5);
       x=maze.x * maze.side;
@@ -12,6 +13,8 @@ class HardPlayer{
       String seperator = "\\";
       if(System.getProperty("os.name").contains("Linux")) seperator = "/";
       end = loadImage("Crates"+seperator+"crate_45.png");
+      bomb= loadImage("bomb.png");
+      boom= loadImage("boom.png");
     }
     void playerVision(){
       // fog gradient
@@ -42,7 +45,8 @@ class HardPlayer{
     }
     void playerControls(){
         if (keyPressed && (key == CODED)){ 
-            if (keyCode == UP && maze.valid(x,y-speed) && maze.valid(x+side , y-speed))   
+          
+          if (keyCode == UP && maze.valid(x,y-speed) && maze.valid(x+side , y-speed))   
                 this.y-=speed;
             else if (keyCode == DOWN  && maze.valid(x,y+side+speed) && maze.valid(x+side , y+side+speed)) 
                 this.y+=speed;
@@ -57,7 +61,14 @@ class HardPlayer{
 
         if (landmarks.size() != sizeFlag)
             landmark_sound.play();
-    
+         //boom   
+        if(key=='b' ||key=='B'){
+            //maze.drawBomb(x,y);
+            isBomb=true;
+            b1=(x+side/2);
+            b2=(y+side/2);
+            bombTime=millis();
+          }  
     }
     
     void drawPlayer(){
@@ -84,6 +95,15 @@ class HardPlayer{
     }
     void update(){
       playerControls();
+      if(isBomb==true){
+         if( millis() < bombTime + 2000){
+             image(bomb,b1-13,b2-13,26,26);      
+         }
+         if( millis() > bombTime + 2000 && millis() < bombTime + 4000){
+             image(boom,b1-25,b2-25,50,50);      
+         }
+         
+      }
       playerVision();
       drawPlayer();
       if(maze.win()){
