@@ -1,4 +1,5 @@
 class Button{
+  PImage currentImg, buttonImg, hoverImg;
   int xPos, yPos, bWidth, bHeight, iD;
   String bLabel;
   boolean hovered = false;
@@ -13,9 +14,24 @@ class Button{
     iD = id;
   }
   
+    Button(int x, int y, int w, int h,int id,PImage img, PImage hoverImg){
+    xPos = x;
+    yPos = y;
+    iD = id;
+    currentImg = img;
+    this.hoverImg = hoverImg;
+    buttonImg = img;
+  bWidth = w;
+    bHeight = h;
+
+    
+    
+  }
+  
   void hover(){
     if (mouseX >= xPos && mouseX <= xPos + bWidth && mouseY >= yPos && mouseY <= yPos + bHeight) {
       hovered = true;
+      currentImg = hoverImg;
       bColor = color(0);
       labelColor = color(255);
     } else {
@@ -40,4 +56,12 @@ class Button{
     fill(labelColor);
     text(bLabel, xPos+bWidth/2-(textWidth(bLabel)/2), yPos+bHeight/2+(textAscent()/2)); 
   } 
+   void display()
+  {
+    image(currentImg, xPos, yPos);
+    hover();
+    press();
+
+  
+  }
 }

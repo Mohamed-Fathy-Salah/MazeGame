@@ -6,9 +6,10 @@ int page = 0, winTime = -1, loseTime = -100000, MAX_LANDMARKS , remainingTime;
 Home home;
 Maze maze;
 HardPlayer player;
-//Button back = new Button(225,400,150,50,"Back",5);
+ PImage backImg1,backImg2;
+Button backButton ;
 Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
-
+ 
 SoundFile win_sound, back_sound, click, lose_sound, landmark_sound;
 
 void setup() {
@@ -25,6 +26,8 @@ void setup() {
   home = new Home();
   home.homeSetUp();
   maze = new Maze(15,40);
+  backImg1 = loadImage("./assets/homeButton2.png");
+  backImg2 = loadImage("./assets/homeButton1.png");
 }
 
 void draw() {
@@ -50,6 +53,13 @@ void draw() {
   }else if(page == 1){ // easy 
     maze.draw();
     player.update();
+    //Button homeButton = new Button(600,50,0,100,100,back,back);
+   
+ 
+
+
+
+    //homeButton.display();
   }else if(page == 2){ // hard
     maze.draw();
     player.update();
@@ -73,6 +83,9 @@ void draw() {
     text("← left",(600 - textWidth("← left"))/2,350);
     text("SPACE landmark",(600 - textWidth("SPACE landmark"))/2,450);
     text("BACK SPACE menu",(600 - textWidth("BACK SPACE menu"))/2,550);
+   backButton = new Button(510,30,100,100,2,backImg1,backImg2);
+  backButton.display();
+
   }
   if( millis() < winTime ){
     win_sound.play();
@@ -94,3 +107,4 @@ void draw() {
   if (keyPressed && key == BACKSPACE)
       page = 0;  
 }
+  
