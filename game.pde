@@ -103,8 +103,8 @@ class HardPlayer{
            }
            if( millis() > bombTime + 2000 && millis() < bombTime + 4000){
                image(boom,b1-25,b2-25,50,50);      
-               bo++;
-               println(bo);
+               bombCount++;
+               //println(bombCount);
            }
         }
       }
