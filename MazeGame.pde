@@ -9,8 +9,12 @@ HardPlayer player;
  PImage backImg1,backImg2;
 Button backButton ;
 Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
- 
-SoundFile win_sound, back_sound, click, lose_sound, landmark_sound;
+
+SoundFile win_sound, back_sound, click, lose_sound, landmark_sound,explosion;
+
+
+
+
 
 void setup() {
   size(600,600); //<>//
@@ -21,6 +25,8 @@ void setup() {
   lose_sound.amp(0.5);
   landmark_sound = new SoundFile(this, "coin.wav");
   back_sound = new SoundFile(this, "Fluffing-a-Duck.wav");
+  explosion = new SoundFile(this, "explosion.wav");
+
   click = new SoundFile(this, "click.wav");
   back_sound.play();
   home = new Home();
