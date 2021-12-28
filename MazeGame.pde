@@ -6,19 +6,21 @@ int page = 0, winTime = -1, loseTime = -100000, MAX_LANDMARKS , remainingTime;
 Home home;
 Maze maze;
 HardPlayer player;
- PImage backImg1,backImg2;
-Button backButton ;
+PImage backImg1,backImg2,soundImg1,soundImg2;
+Button backButton,soundButton ;
 Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
 
 SoundFile win_sound, back_sound, click, lose_sound, landmark_sound,explosion;
 
 
-
+ //<>//
 
 
 void setup() {
   size(600,600); //<>//
   frameRate(30);
+    backImg1 = loadImage("./assets/homeButton2.png");
+  backImg2 = loadImage("./assets/homeButton1.png");
   win_sound = new SoundFile(this, "cartoon_success_fanfair.wav");
   win_sound.amp(0.5);
   lose_sound = new SoundFile(this, "losing.wav");
@@ -28,13 +30,14 @@ void setup() {
   explosion = new SoundFile(this, "explosion.wav");
 
   click = new SoundFile(this, "click.wav");
-  back_sound.play();
+   backButton = new Button(510,10,100,100,0,backImg1,backImg2);
+   soundButton = new Button(20,10,100,100,0,backImg1,backImg2);
+    back_sound.play();
   home = new Home();
   home.homeSetUp();
   maze = new Maze(15,40);
-  backImg1 = loadImage("./assets/homeButton2.png");
-  backImg2 = loadImage("./assets/homeButton1.png");
-}
+
+}  
 
 void draw() {
   
@@ -59,10 +62,9 @@ void draw() {
   }else if(page == 1){ // easy 
     maze.draw();
     player.update();
-    //Button homeButton = new Button(600,50,0,100,100,back,back);
    
- 
-
+   backButton.display();
+   soundButton.mute();
 
 
     //homeButton.display();
@@ -79,6 +81,8 @@ void draw() {
     text(Integer.toString(remainingTime) ,textWidth("time : ") + 20,635);
     text(Integer.toString(MAX_LANDMARKS - landmarks.size()) ,600-25,635);
     if(frameCount % 30 == 0)remainingTime--; // every second
+    backButton.display(); //back button
+    soundButton.display();
   }else if(page == 3){ //keys
     background(0);
     fill(255);
@@ -89,12 +93,12 @@ void draw() {
     text("← left",(600 - textWidth("← left"))/2,350);
     text("SPACE landmark",(600 - textWidth("SPACE landmark"))/2,450);
     text("BACK SPACE menu",(600 - textWidth("BACK SPACE menu"))/2,550);
-   backButton = new Button(510,30,100,100,2,backImg1,backImg2);
-  backButton.display();
+    backButton.display();
+    soundButton.display();
 
   }
   if( millis() < winTime ){
-    win_sound.play();
+    win_sound.play();  
     page = 0;
     textSize(102);
     background(0);

@@ -1,6 +1,7 @@
 class Button{
   PImage currentImg, buttonImg, hoverImg;
   int xPos, yPos, bWidth, bHeight, iD;
+  boolean mute = false;
   String bLabel;
   boolean hovered = false;
   color bColor = color(255);
@@ -38,6 +39,8 @@ class Button{
       hovered = false;
       bColor = color(255);
       labelColor = color(0);
+       currentImg = buttonImg;
+      
     }
   }
   void press() {
@@ -62,6 +65,18 @@ class Button{
     hover();
     press();
 
+  
+  }
+  void mute() {
+        image(currentImg, xPos, yPos);
+    hover();
+    if(mousePressed){
+      if(hovered) mute = !mute;
+      //click.play();
+      if(mute) back_sound.amp(0);
+      else back_sound.amp(0.5);
+     
+    }
   
   }
 }
