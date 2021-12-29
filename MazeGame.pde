@@ -44,7 +44,7 @@ void draw() {
      home.drawKeys();
   }
   if( millis() < winTime ){
-      win_sound.play();
+      if(page!=0)win_sound.play();
       page = 0;
       textSize(102);
       background(0);
@@ -52,8 +52,8 @@ void draw() {
       text("WIN",300-(textWidth("WIN")/2),320);
     }
     if( millis() > loseTime &&  millis() < loseTime + 2500){
+      if(page!=0)lose_sound.play();
       page = 0;      
-      lose_sound.play();
       textSize(102);
       background(0);
       fill(255,0,0);
