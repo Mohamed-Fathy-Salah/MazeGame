@@ -1,29 +1,22 @@
 import processing.sound.*;
 class HardPlayer{
 
-    int side,x,y,visionSize,speed,b1,b2,bombTime,bombCount,MAX_LANDMARKS; 
-    PImage playerImage, end,bomb,boom;
+    int side,x,y,visionSize,speed,bx,by,bombTime,bombCount,MAX_LANDMARKS; 
+    PImage playerImage, bomb,boom;
     boolean bombPlaced = false;
      
     HardPlayer(){
-      String seperator = "\\";
-      if(System.getProperty("os.name").contains("Linux")) seperator = "/";
-      
       side = int(maze.side/1.5);
       x=maze.x * maze.side;
       y=maze.y * maze.side;
       visionSize=150;
       speed = 2;
       playerImage = loadImage("playerFace_dark.png");
-      end = loadImage("Crates"+seperator+"crate_45.png");
+      
       bomb= loadImage("bomb.png");
       boom= loadImage("boom.png");
       bombCount = 2;
       MAX_LANDMARKS = 5;
-    }
-    boolean valid(int x,int y){
-      if(x<0 || x>14 || y<0 || y>14)return false;
-      return true;
     }
     
     void playerVision(){
@@ -43,16 +36,8 @@ class HardPlayer{
       rect(0,y+visionSize,width,width-y-visionSize);
       rect(0,y-visionSize,x - visionSize,2*visionSize);
       rect(x+visionSize,y-visionSize,width- x - visionSize,2*visionSize);
-      
-      drawEnd();
     }
-    void drawEnd(){
-      pushMatrix();
-      translate(maze.x_*maze.side, maze.y_*maze.side);
-      scale(float(maze.side) / end.width);
-      image(end, 0,0);
-      popMatrix();
-    }
+    
     void playerControls(){
         if (keyPressed && (key == CODED)){ 
           
@@ -72,8 +57,8 @@ class HardPlayer{
         }
          //boom   
         if((key=='b' ||key=='B') && bombCount>0 && !bombPlaced){
-            b1=(x+side/2);
-            b2=(y+side/2);
+            bx=(x+side/2);
+            by=(y+side/2);
             bombCount--;
             bombTime=millis();
             bombPlaced = true;
@@ -81,9 +66,6 @@ class HardPlayer{
     }
     
     void drawPlayer(){
-      //landmarks
-      //fill(0); 
-      
       pushMatrix();
       translate(x,y);
       scale(float(side) / playerImage.width);
@@ -108,19 +90,11 @@ class HardPlayer{
     void update(){
       playerControls();
       if( millis() < bombTime + 2000){
-          image(bomb,b1-13,b2-13,26,26);
+          image(bomb,bx-13,by-13,26,26);
       }else if( millis() > bombTime + 2000 && millis() < bombTime + 3000){
-          image(boom,b1-25,b2-25,50,50); 
+          image(boom,bx-25,by-25,50,50); 
           explosion.play();
-          int xx=b1/40 ,yy=b2/40;
-          if(valid(xx-1,yy))maze.matrix[xx-1][yy]=1;
-          if(valid(xx+1,yy))maze.matrix[xx+1][yy]=1;
-          if(valid(xx,yy+1))maze.matrix[xx][yy+1]=1;
-          if(valid(xx,yy-1))maze.matrix[xx][yy-1]=1;
-          if(valid(xx-1,yy-1))maze.matrix[xx-1][yy-1]=1;
-          if(valid(xx+1,yy-1))maze.matrix[xx+1][yy-1]=1;
-          if(valid(xx-1,yy+1))maze.matrix[xx-1][yy+1]=1;
-          if(valid(xx+1,yy+1))maze.matrix[xx+1][yy+1]=1;
+          maze.conv2Ground(bx,by);
       }else if (millis() >= bombTime+3000)bombPlaced = false;
       playerVision();
       drawPlayer();
@@ -130,10 +104,11 @@ class HardPlayer{
     }
 }
 class EasyPlayer extends HardPlayer{
+    EasyPlayer(){
+      super();
+      bombCount = Integer.MAX_VALUE;
+      MAX_LANDMARKS = Integer.MAX_VALUE;
+    }
     @Override
-        void playerVision(){
-          drawEnd();
-          bombCount = Integer.MAX_VALUE;
-          MAX_LANDMARKS = Integer.MAX_VALUE;
-        }
+        void playerVision(){}
 }

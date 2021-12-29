@@ -2,23 +2,22 @@ import java.util.Stack;
 import javafx.util.Pair;
 
 class Maze{
-    final int WALL = 0, GROUND =1 ,LANDMARK = 2;
+    final int WALL = 0, GROUND =1 ,LANDMARK = 2 , END = 3;
     int x , y , x_, y_ , n,side;  
     int[][] matrix;
-    PImage wall , ground ,landmark;
-    PApplet main;
-    Maze(int n,int side){
+    PImage[] images ;
+    Maze(int n){
        this.n = n;
-       this.side = side;
-       String separator = "\\";
-       if(System.getProperty("os.name").contains("Linux")) separator = "/";
+       this.side = width / n;
+       images = new PImage[4];
        //wall = loadImage("Blocks"+seperator+"block_01.png");
-       wall = loadImage("Crates"+separator+"crate_16.png");
-       ground = loadImage("Ground"+separator+"ground_06.png");
-       landmark= loadImage("Crates"+separator+"crate_08.png");
+       images[WALL] = loadImage("Crates"+separator+"crate_16.png");
+       images[GROUND] = loadImage("Ground"+separator+"ground_06.png");
+       images[LANDMARK] = loadImage("Crates"+separator+"crate_08.png");
+       images[END] = loadImage("Crates"+separator+"crate_45.png");
     }
     Maze(){
-      this(30,20);
+      this(30);
     }
     
     private void shuffleArray(int[] arr){
@@ -59,34 +58,34 @@ class Maze{
             //int dirs = 3;
             for(int k = 0;k<dirs;k++){
                 int newx = curx + dx[idx[k]] ,newy = cury + dy[idx[k]] ;
-                if(newx <0 || newx >=n || newy <0 || newy >=n ||matrix[newx][newy] == 1)continue;
+                if(newx <0 || newx >=n || newy <0 || newy >=n ||matrix[newx][newy] == GROUND)continue;
                 stack.push(new Pair<Integer,Integer>(newx,newy));
-                matrix[newx][newy] = matrix[(newx+curx)>>1][(newy+cury)>>1] = 1;
+                matrix[newx][newy] = matrix[(newx+curx)>>1][(newy+cury)>>1] = GROUND;
             } 
         }
         //making sure there is a path
-        if(matrix[x_][y_] == 0){
+        if(matrix[x_][y_] == WALL){
           stack.push(new Pair<Integer,Integer>(x_,y_));
           while(!stack.isEmpty()){
               Pair<Integer,Integer> p = stack.pop(); 
               int curx = p.getKey() ,cury = p.getValue();
-              if(matrix[curx][cury] == 1)break;
-              matrix[curx][cury] = 1;
+              if(matrix[curx][cury] == GROUND)break;
+              matrix[curx][cury] = GROUND;
               shuffleArray(idx);   
               //int dirs = int(random(2,3));
               int dirs = 3;
               for(int k = 0;k<dirs;k++){
                   int newx = curx + dx[idx[k]] ,newy = cury + dy[idx[k]] ;
                   if(newx <0 || newx >=n || newy <0 || newy >=n)continue;
-                  matrix[(newx+curx)>>1][(newy+cury)>>1] = 1;
+                  matrix[(newx+curx)>>1][(newy+cury)>>1] = GROUND;
                   stack.push(new Pair<Integer,Integer>(newx,newy));
               } 
           }
         }
         //random points convert to road
         for(int i = 0 ;i<10;i++)
-          matrix[int(random(0,(n>>1) - 1))<<1][int(random(0,(n>>1) - 1))<<1] =1;
-       
+          matrix[int(random(0,n))][int(random(0,n))] = GROUND;
+        matrix[x_][y_] = END;
     }
     
     boolean win(){
@@ -96,19 +95,13 @@ class Maze{
       return nx>=0 && nx<width && ny>=0 && ny<width && matrix[nx/side][ny/side] != WALL;
     }
     
-    
     void draw(){
       for(int i = 0 ;i<n;i++){
         for(int j = 0 ;j<n;j++){
           pushMatrix();
           translate(i*side, j*side);
-          scale(float(side) / wall.width);
-          if(matrix[i][j] == WALL)
-            image(wall, 0,0);
-          else if(matrix[i][j] == GROUND)
-            image(ground, 0,0);
-          else 
-            image(landmark,0,0);
+          scale(float(side) / images[WALL].width);
+          image(images[matrix[i][j]] , 0 ,0);
           popMatrix();
         }
       }
@@ -118,5 +111,15 @@ class Maze{
     }
     void set(int x,int y,int value){
       matrix[x/side][y/side] = value;
+    }
+    void conv2Ground(int x,int y){
+      x/=side;
+      y/=side;
+      int dx[] = {1,1,1,-1,-1,-1,0,0};
+      int dy[] = {1,-1,0,1,-1,0,1,-1};
+      for(int k = 0;k<8;k++){
+        int nx = x + dx[k] , ny = y + dy[k];
+        if(nx<width && ny<width && nx>=0 && ny>= 0 && matrix[nx][ny] == WALL) matrix[nx][ny]=GROUND;
+      }
     }
 }
