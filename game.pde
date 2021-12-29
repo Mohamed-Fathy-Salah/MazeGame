@@ -93,10 +93,13 @@ class HardPlayer{
       if( millis() < bombTime + 2000){
           image(bomb,bx-13,by-13,26,26);
       }else if( millis() > bombTime + 2000 && millis() < bombTime + 3000){
-          image(boom,bx-25,by-25,50,50); 
-          explosion.play();
+          image(boom,bx-25,by-25,50,50);
+          if(bombPlaced) {
+            bombPlaced = false;
+            explosion.play();
+          }
           maze.conv2Ground(bx,by);
-      }else if (millis() >= bombTime+3000)bombPlaced = false;
+      }
       playerVision();
       drawPlayer();
       if(maze.win()){
