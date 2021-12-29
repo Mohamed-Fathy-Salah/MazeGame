@@ -66,10 +66,11 @@ class Button{
     image(currentImg, xPos, yPos);
     hover();
     if(mousePressed){
-      if(hovered) mute = !mute;
-      //click.play();
-      if(mute) back_sound.pause();
-      else back_sound.play();
+      if(hovered){
+         mute = !mute;
+        if(mute) back_sound.pause();
+        else back_sound.play();
+      }
     }
   }
 }

@@ -57,9 +57,9 @@ class Home {
     text(Integer.toString(remainingTime) ,textWidth("time : ") + 20,635);
     text(Integer.toString(player.MAX_LANDMARKS) ,600-25,635);
     text(Integer.toString(player.bombCount) , 335 ,635);
-    //if(frameCount % 30 == 0)remainingTime--; // every second
-    
+    remainingTime = (loseTime - millis())/1000+1;
     backButton.display(); //back button
+    if(mousePressed && backButton.hovered) loseTime = -10000000;
   }
   
   void drawEasy(){
@@ -82,11 +82,11 @@ class Home {
     easy.update(); 
     hard.update();
     keys.update();
-    soundButton.mute();
+    //soundButton.mute();
     
     if(page == 1 || page == 2){
       maze.generateMaze();
-      remainingTime = 10;
+      remainingTime = 60;
       if(page == 1){
         player = new EasyPlayer();
       }

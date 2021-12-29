@@ -62,7 +62,8 @@ class HardPlayer{
             bombCount--;
             bombTime=millis();
             bombPlaced = true;
-          }  
+          }
+          
     }
     
     void drawPlayer(){
