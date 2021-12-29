@@ -2,9 +2,10 @@ import java.util.Stack;
 import javafx.util.Pair;
 
 class Maze{
+    final int WALL = 0, GROUND =1 ,LANDMARK = 2;
     int x , y , x_, y_ , n,side;  
     int[][] matrix;
-    PImage wall , ground ;
+    PImage wall , ground ,landmark;
     PApplet main;
     Maze(int n,int side){
        this.n = n;
@@ -14,7 +15,7 @@ class Maze{
        //wall = loadImage("Blocks"+seperator+"block_01.png");
        wall = loadImage("Crates"+separator+"crate_16.png");
        ground = loadImage("Ground"+separator+"ground_06.png");
-      
+       landmark= loadImage("Crates"+separator+"crate_08.png");
     }
     Maze(){
       this(30,20);
@@ -92,27 +93,30 @@ class Maze{
       return player.x/side == x_ && player.y/side == y_;
     }
     boolean valid(int nx,int ny){
-      return nx>=0 && nx<width && ny>=0 && ny<width && matrix[nx/side][ny/side] == 1;
+      return nx>=0 && nx<width && ny>=0 && ny<width && matrix[nx/side][ny/side] != WALL;
     }
     
     
     void draw(){
-        for(int i = 0 ;i<n;i++){
-          for(int j = 0 ;j<n;j++){
-            pushMatrix();
-            translate(i*side, j*side);
-            scale(float(side) / wall.width);
-            image(matrix[i][j] == 0?wall:ground , 0,0);
-            popMatrix();
-          }
+      for(int i = 0 ;i<n;i++){
+        for(int j = 0 ;j<n;j++){
+          pushMatrix();
+          translate(i*side, j*side);
+          scale(float(side) / wall.width);
+          if(matrix[i][j] == WALL)
+            image(wall, 0,0);
+          else if(matrix[i][j] == GROUND)
+            image(ground, 0,0);
+          else 
+            image(landmark,0,0);
+          popMatrix();
         }
-
-
-        
-        
-        //landmarks
-        fill(0); 
-        for(Pair<Integer,Integer> landmark:landmarks)
-          circle(landmark.getKey(),landmark.getValue(), player.side);
-        }
+      }
+    }
+    boolean isLandmark(int x,int y){
+      return matrix[x/side][y/side] == LANDMARK;
+    }
+    void set(int x,int y,int value){
+      matrix[x/side][y/side] = value;
+    }
 }
