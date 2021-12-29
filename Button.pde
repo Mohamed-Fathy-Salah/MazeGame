@@ -1,5 +1,7 @@
 class Button{
+  PImage currentImg, buttonImg, hoverImg;
   int xPos, yPos, bWidth, bHeight, iD;
+  boolean mute = false;
   String bLabel;
   boolean hovered = false;
   color bColor = color(255);
@@ -13,15 +15,32 @@ class Button{
     iD = id;
   }
   
+    Button(int x, int y, int w, int h,int id,PImage img, PImage hoverImg){
+    xPos = x;
+    yPos = y;
+    iD = id;
+    currentImg = img;
+    this.hoverImg = hoverImg;
+    buttonImg = img;
+  bWidth = w;
+    bHeight = h;
+
+    
+    
+  }
+  
   void hover(){
     if (mouseX >= xPos && mouseX <= xPos + bWidth && mouseY >= yPos && mouseY <= yPos + bHeight) {
       hovered = true;
+      currentImg = hoverImg;
       bColor = color(0);
       labelColor = color(255);
     } else {
       hovered = false;
       bColor = color(255);
       labelColor = color(0);
+       currentImg = buttonImg;
+      
     }
   }
   void press() {
@@ -40,4 +59,24 @@ class Button{
     fill(labelColor);
     text(bLabel, xPos+bWidth/2-(textWidth(bLabel)/2), yPos+bHeight/2+(textAscent()/2)); 
   } 
+   void display()
+  {
+    image(currentImg, xPos, yPos);
+    hover();
+    press();
+
+  
+  }
+  void mute() {
+        image(currentImg, xPos, yPos);
+    hover();
+    if(mousePressed){
+      if(hovered) mute = !mute;
+      //click.play();
+      if(mute) back_sound.amp(0);
+      else back_sound.amp(0.5);
+     
+    }
+  
+  }
 }

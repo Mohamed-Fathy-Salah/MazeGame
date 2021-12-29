@@ -4,13 +4,21 @@ int page = 0, winTime = -1, loseTime = -100000 , remainingTime;
 Home home;
 Maze maze;
 HardPlayer player;
-//Button back = new Button(225,400,150,50,"Back",5);
+PImage backImg1,backImg2,soundImg1,soundImg2;
+Button backButton,soundButton ;
+Set<Pair<Integer,Integer>> landmarks = new HashSet<Pair<Integer,Integer>>();
 
 SoundFile win_sound, back_sound, click, lose_sound, landmark_sound,explosion;
+
+
+ //<>//
+
 
 void setup() {
   size(600,600); //<>//
   frameRate(30);
+    backImg1 = loadImage("./assets/homeButton2.png");
+  backImg2 = loadImage("./assets/homeButton1.png");
   win_sound = new SoundFile(this, "cartoon_success_fanfair.wav");
   win_sound.amp(0.5);
   lose_sound = new SoundFile(this, "losing.wav");
@@ -20,7 +28,9 @@ void setup() {
   explosion = new SoundFile(this, "explosion.wav");
   //explosion.amp(0.5);
   click = new SoundFile(this, "click.wav");
-  back_sound.play();
+   backButton = new Button(510,10,100,100,0,backImg1,backImg2);
+   soundButton = new Button(20,10,100,100,0,backImg1,backImg2);
+    back_sound.play();
   home = new Home();
   home.homeSetUp();
   maze = new Maze(15,40);
@@ -47,6 +57,10 @@ void draw() {
   }else if(page == 1){ // easy 
     maze.draw();
     player.update();
+   
+   backButton.display();
+   soundButton.mute();
+
   }else if(page == 2){ // hard
     maze.draw();
     player.update();
@@ -62,6 +76,8 @@ void draw() {
     text(Integer.toString(player.MAX_LANDMARKS) ,600-25,635);
     text(Integer.toString(player.bombCount) , 335 ,635);
     if(frameCount % 30 == 0)remainingTime--; // every second
+    backButton.display(); //back button
+    soundButton.display();
   }else if(page == 3){ //keys
     background(0);
     fill(255);
@@ -94,3 +110,4 @@ void draw() {
   if (keyPressed && key == BACKSPACE)
       page = 0;  
 }
+  
