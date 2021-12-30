@@ -56,7 +56,7 @@ class Button{
     text(bLabel, xPos+bWidth/2-(textWidth(bLabel)/2), yPos+bHeight/2+(textAscent()/2)); 
   } 
    void display(){
-    tint(255,50);
+    tint(255,100);
     image(currentImg, xPos, yPos);
     tint(255,255);
     hover();
