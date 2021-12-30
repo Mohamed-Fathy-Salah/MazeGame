@@ -15,7 +15,7 @@ SoundFile win_sound, back_sound, click, lose_sound, landmark_sound,explosion;
 void setup() {
   if(System.getProperty("os.name").contains("Linux")) separator = "/"; //<>//
   size(600,600); 
-  frameRate(60);
+  //frameRate(60);
   win_sound = new SoundFile(this, "sounds"+separator+"cartoon_success_fanfair.wav");
   win_sound.amp(0.2);
   lose_sound = new SoundFile(this, "sounds"+separator+"losing.wav");
@@ -60,8 +60,10 @@ void draw() {
       text("GameOver",300-(textWidth("GameOver")/2),320);
     }
   
-  if (keyPressed && key == BACKSPACE)
+  if (keyPressed && key == BACKSPACE){
+      loseTime = -10000000; 
       page = 0;
+  }
   
 }
 void keyReleased() {
