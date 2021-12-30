@@ -56,8 +56,8 @@ class HardPlayer{
             else if (keyCode == LEFT && maze.valid(x-speed,y) && maze.valid(x-speed , y+side)) 
                 this.x-=speed;
         }
-        if (key == ' ' && !maze.isLandmark(x,y) && MAX_LANDMARKS > 0){
-            maze.set(x,y,maze.LANDMARK);
+        if (key == ' ' && !maze.isLandmark(x+side/2,y+side/2) && MAX_LANDMARKS > 0){
+            maze.set(x+side/2,y+side/2,maze.LANDMARK);
             landmark_sound.play();
             MAX_LANDMARKS--;
         }
