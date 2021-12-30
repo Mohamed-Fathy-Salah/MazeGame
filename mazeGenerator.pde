@@ -119,7 +119,7 @@ class Maze{
       int dy[] = {1,-1,0,1,-1,0,1,-1};
       for(int k = 0;k<8;k++){
         int nx = x + dx[k] , ny = y + dy[k];
-        if(nx<width && ny<width && nx>=0 && ny>= 0 && matrix[nx][ny] == WALL) matrix[nx][ny]=GROUND;
+        if(nx<n && ny<n && nx>=0 && ny>= 0 && matrix[nx][ny] == WALL) matrix[nx][ny]=GROUND;
       }
     }
 }

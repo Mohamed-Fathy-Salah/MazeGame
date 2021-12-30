@@ -34,13 +34,10 @@ class Home {
     background(0);
     fill(255);
     textSize(30);
-    text("↑ | up",(600 - textWidth("↑ | up"))/2,50);
-    text("→ | right",(600 - textWidth("→ | right"))/2,130);
-    text("↓ | down",(600 - textWidth("↓ | down"))/2,220);
-    text("← | left",(600 - textWidth("← | left"))/2,310);
-    text("SPACE | landmark",(600 - textWidth("SPACE | landmark"))/2,400);
-    text("B | land bomb",(600 - textWidth("B | land bomb"))/2,490);
-    text("BACK | SPACE menu",(600 - textWidth("BACK | SPACE menu"))/2,580);
+    float th = 36 , xh = 34.66;
+    String []txt = {"↑ | up" , "→ | right" , "↓ | down" ,"← | left" , "SPACE | landmark" ,"B | land bomb","M | mute music","BACK | SPACE menu"};
+    for(int i = 0;i<txt.length;i++)
+      text(txt[i],(600 - textWidth(txt[i]))/2,(i+1)*(th+xh));
   }
   
   void drawHard(){
