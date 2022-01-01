@@ -7,7 +7,7 @@ boolean backOn = true;
 Home home;
 Maze maze;
 HardPlayer player;
-PImage backImg1,backImg2,soundImg1,soundImg2;
+PImage backImg1,backImg2,muteImg,mutehoverImg,unmuteImg,unmutehoverImg;
 Button backButton,soundButton ;
 
 SoundFile win_sound, back_sound, click, lose_sound, landmark_sound,explosion;
@@ -44,7 +44,7 @@ void draw() {
      home.drawKeys();
   }
   if( millis() < winTime ){
-      if(page!=0)win_sound.play();
+      if(!win_sound.isPlaying())win_sound.play();
       page = 0;
       textSize(102);
       background(0);
@@ -52,7 +52,7 @@ void draw() {
       text("WIN",300-(textWidth("WIN")/2),320);
     }
     if( millis() > loseTime &&  millis() < loseTime + 2500){
-      if(page!=0)lose_sound.play();
+      if(!lose_sound.isPlaying())lose_sound.play();
       page = 0;      
       textSize(102);
       background(0);
@@ -68,14 +68,8 @@ void draw() {
 }
 void keyReleased() {
   if(key=='m' ||key=='M'){
-    if(!backOn){
-      backOn = !backOn;
-      back_sound.play();
-    } 
-    else{
-      backOn = !backOn;
-       back_sound.pause();
-    }
+     if(back_sound.isPlaying())back_sound.pause();
+     else back_sound.play();
   }
 }
   
