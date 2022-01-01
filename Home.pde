@@ -21,13 +21,18 @@ class Home {
     backImg1 = loadImage("homeButton2.png");
     backImg2 = loadImage("homeButton1.png");
     
+    unmuteImg = loadImage("unmute.png");
+    muteImg = loadImage("mute.png");
+    
+    unmutehoverImg = loadImage("unmutehover.png");
+    mutehoverImg = loadImage("mutehover.png");
     
     backButton = new Button(510,10,100,100,0,backImg1,backImg2);
-    soundButton = new Button(20,10,100,100,0,backImg1,backImg2);
+    soundButton = new Button(20,10,100,100,0,unmuteImg,unmutehoverImg);
     maze = new Maze(15);
     player = new EasyPlayer();
     
-    back_sound.play();
+    back_sound.loop();
   }
   
   void drawKeys(){
@@ -38,6 +43,8 @@ class Home {
     String []txt = {"↑ | up" , "→ | right" , "↓ | down" ,"← | left" , "SPACE | landmark" ,"B | land bomb","M | mute music","BACK | SPACE menu"};
     for(int i = 0;i<txt.length;i++)
       text(txt[i],(600 - textWidth(txt[i]))/2,(i+1)*(th+xh));
+     backButton.display();
+     soundButton.mute();
   }
   
   void drawHard(){
@@ -56,6 +63,7 @@ class Home {
     text(Integer.toString(player.bombCount) , 335 ,635);
     remainingTime = (loseTime - millis())/1000+1;
     backButton.display(); //back button
+    soundButton.mute();
     if(mousePressed && backButton.hovered) loseTime = -10000000;
   }
   
@@ -63,6 +71,7 @@ class Home {
      maze.draw();
      player.update();
      backButton.display();
+     soundButton.mute();
   }
   
   void drawMenu(){
@@ -79,7 +88,7 @@ class Home {
     easy.update(); 
     hard.update();
     keys.update();
-    //soundButton.mute();
+    soundButton.mute();
     
     if(page == 1 || page == 2){
       maze.generateMaze();

@@ -1,6 +1,6 @@
 class Button{
   PImage currentImg, buttonImg, hoverImg;
-  int xPos, yPos, bWidth, bHeight, iD;
+  int xPos, yPos, bWidth, bHeight, iD,clickTime;
   boolean mute = false;
   String bLabel;
   boolean hovered = false;
@@ -24,10 +24,11 @@ class Button{
     buttonImg = img;
     bWidth = w;
     bHeight = h;
+    clickTime = -1;
   }
   
   void hover(){
-    if (mouseX >= xPos && mouseX <= xPos + bWidth && mouseY >= yPos && mouseY <= yPos + bHeight) {
+    if (inside()) {
       hovered = true;
       currentImg = hoverImg;
       bColor = color(0);
@@ -42,7 +43,7 @@ class Button{
   void press() {
     if(mousePressed){
       if(hovered) page = iD;
-      click.play();
+      if(!click.isPlaying())click.play();
     }
   }
   void update(){
@@ -56,21 +57,32 @@ class Button{
     text(bLabel, xPos+bWidth/2-(textWidth(bLabel)/2), yPos+bHeight/2+(textAscent()/2)); 
   } 
    void display(){
-    tint(255,100);
+    if(page ==1 || page == 2)tint(255,100);
     image(currentImg, xPos, yPos);
     tint(255,255);
     hover();
     press();
   }
+  boolean inside(){
+    return mouseX >= xPos && mouseX <= xPos + bWidth && mouseY >= yPos && mouseY <= yPos + bHeight;
+  }
   void mute() {
+    if(page == 1 || page == 2)tint(255,100);
     image(currentImg, xPos, yPos);
+    tint(255,255);
     hover();
-    if(mousePressed){
-      if(hovered){
-         mute = !mute;
-        if(mute) back_sound.pause();
-        else back_sound.play();
+    if(mousePressed && hovered && millis() - clickTime > 500){
+      if(back_sound.isPlaying()){
+        back_sound.pause();
+        buttonImg = muteImg;
+        hoverImg = mutehoverImg;
       }
+      else{
+        back_sound.play();
+        buttonImg = unmuteImg;
+        hoverImg = unmutehoverImg;
+      }
+      clickTime = millis();
     }
   }
 }
