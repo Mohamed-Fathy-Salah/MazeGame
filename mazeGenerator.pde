@@ -122,4 +122,7 @@ class Maze{
         if(nx<n && ny<n && nx>=0 && ny>= 0 && matrix[nx][ny] == WALL) matrix[nx][ny]=GROUND;
       }
     }
+    boolean isWall(int x,int y){
+      return matrix[x/side][y/side] == WALL;
+    }
 }

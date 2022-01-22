@@ -43,7 +43,7 @@ class Button{
   void press() {
     if(mousePressed){
       if(hovered) page = iD;
-      if(!click.isPlaying())click.play();
+      //if(!click.isPlaying())click.play();
     }
   }
   void update(){
@@ -72,16 +72,16 @@ class Button{
     tint(255,255);
     hover();
     if(mousePressed && hovered && millis() - clickTime > 500){
-      if(back_sound.isPlaying()){
-        back_sound.pause();
-        buttonImg = muteImg;
-        hoverImg = mutehoverImg;
-      }
-      else{
-        back_sound.play();
-        buttonImg = unmuteImg;
-        hoverImg = unmutehoverImg;
-      }
+      //if(back_sound.isPlaying()){
+      //  back_sound.pause();
+      //  buttonImg = muteImg;
+      //  hoverImg = mutehoverImg;
+      //}
+      //else{
+      //  back_sound.play();
+      //  buttonImg = unmuteImg;
+      //  hoverImg = unmutehoverImg;
+      //}
       clickTime = millis();
     }
   }
