@@ -1,16 +1,16 @@
 class Home {
   
   PImage mazeText, gameText;
-  PImage[] GIF;
+  //PImage[] GIF;
   Button easy, hard , keys;
 
   void homeSetUp(){
-    GIF = new PImage[180];
+    //GIF = new PImage[180];
     
-    for(int i=0;i<180;i++){
-        GIF[i] = loadImage("BackGround"+separator+"backGround-"+i+".png");
-        GIF[i].resize(600,600);
-    }
+    //for(int i=0;i<180;i++){
+    //    GIF[i] = loadImage("BackGround"+separator+"backGround-"+i+".png");
+    //    GIF[i].resize(600,600);
+    //}
  
     mazeText = loadImage("maze.png");
     gameText = loadImage("game.png");
@@ -27,12 +27,12 @@ class Home {
     unmutehoverImg = loadImage("unmutehover.png");
     mutehoverImg = loadImage("mutehover.png");
     
-    backButton = new Button(510,10,100,100,0,backImg1,backImg2);
-    soundButton = new Button(20,10,100,100,0,unmuteImg,unmutehoverImg);
+    //backButton = new Button(510,10,100,100,0,backImg1,backImg2);
+    //soundButton = new Button(20,10,100,100,0,unmuteImg,unmutehoverImg);
     maze = new Maze(15);
     player = new EasyPlayer();
     
-    back_sound.loop();
+    //back_sound.loop();
   }
   
   void drawKeys(){
@@ -43,8 +43,8 @@ class Home {
     String []txt = {"↑ | up" , "→ | right" , "↓ | down" ,"← | left" , "SPACE | landmark" ,"B | land bomb","M | mute music","BACK | SPACE menu"};
     for(int i = 0;i<txt.length;i++)
       text(txt[i],(600 - textWidth(txt[i]))/2,(i+1)*(th+xh));
-     backButton.display();
-     soundButton.mute();
+     //backButton.display();
+     //soundButton.mute();
   }
   
   void drawHard(){
@@ -62,22 +62,22 @@ class Home {
     text(Integer.toString(player.MAX_LANDMARKS) ,600-25,635);
     text(Integer.toString(player.bombCount) , 335 ,635);
     remainingTime = (loseTime - millis())/1000+1;
-    backButton.display(); //back button
-    soundButton.mute();
-    if(mousePressed && backButton.hovered) loseTime = -10000000;
+    //backButton.display(); //back button
+    //soundButton.mute();
+    //if(mousePressed && backButton.hovered) loseTime = -10000000;
   }
   
   void drawEasy(){
      maze.draw();
      player.update();
-     backButton.display();
-     soundButton.mute();
+     //backButton.display();
+     //soundButton.mute();
   }
   
   void drawMenu(){
     surface.setSize(600, 600);
     
-    image( GIF[frameCount%180], 0, 0);
+    //image( GIF[frameCount%180], 0, 0);
     image(mazeText, 140, 70);
     image(gameText, 133, 70+85);
     fill(0);
@@ -88,7 +88,7 @@ class Home {
     easy.update(); 
     hard.update();
     keys.update();
-    soundButton.mute();
+    //soundButton.mute();
     
     if(page == 1 || page == 2){
       maze.generateMaze();

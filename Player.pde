@@ -20,28 +20,7 @@ class HardPlayer{
     }
     
     void playerVision(){
-      // fog gradient
-      int weight = 5 , itr = (visionSize + weight - 1)/weight;
-      noFill();
-      strokeWeight(weight);
-      for(int i = 0 ;i<=itr;i++){
-        stroke(0,55+i*200/itr);
-        circle(x+side/2,y+side/2,visionSize + i* weight);
-      }
-      //outer circle
-      strokeWeight(visionSize*(sqrt(8)-2));
-      stroke(0,255);
-      circle(x+side/2,y+side/2,visionSize*sqrt(8));
-      // fog boundries
-      noStroke();
-      
-      fill(0);
-      int x1 = x-visionSize + side /2 , x2 = x+visionSize + side /2;
-      int y1 = y-visionSize + side /2 , y2 = y+visionSize + side /2;
-      rect(0,0,width,y1);//up
-      rect(0,y2,width,width-y2);//down
-      rect(0,y1,x1,2*visionSize);//left
-      rect(x2,y1,width - x2,2*visionSize);//right
+      vision.rowCol(x+side/2,y+side/2);
     }
     
     void playerControls(){
@@ -58,7 +37,7 @@ class HardPlayer{
         }
         if (key == ' ' && !maze.isLandmark(x+side/2,y+side/2) && MAX_LANDMARKS > 0){
             maze.set(x+side/2,y+side/2,maze.LANDMARK);
-            landmark_sound.play();
+            //landmark_sound.play();
             MAX_LANDMARKS--;
         }
          //boom   
@@ -102,7 +81,7 @@ class HardPlayer{
           image(boom,bx-25,by-25,50,50);
           if(bombPlaced) {
             bombPlaced = false;
-            explosion.play();
+            //explosion.play();
           }
           maze.conv2Ground(bx,by);
       }
