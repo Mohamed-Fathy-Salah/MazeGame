@@ -20,7 +20,7 @@ class HardPlayer{
     }
     
     void playerVision(){
-      vision.rowCol(x+side/2,y+side/2);
+      vision.rayTracing(x+side/2,y+side/2);
     }
     
     void playerControls(){

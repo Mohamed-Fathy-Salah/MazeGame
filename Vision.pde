@@ -38,7 +38,36 @@ class Vision{
         }
     }
     void rayTracing(int x,int y){
-      //TODO
+      int n = 6;
+      strokeWeight(5);
+      stroke(0,255,0);
+      for(int i = -n ;i<=n ;i+=2){
+        int dx = x+n-i , dy = y-i;
+        while(maze.valid(dx,dy)){
+          dx+=n-i;
+          dy-=i;
+        }
+        point(dx,dy);
+        dx = x-n+i ;dy = y+i;
+        while(maze.valid(dx,dy)){
+          dx+=-n+i;
+          dy+=i;
+        }
+        point(dx,dy);
+        
+        dx = x-i ; dy = y+n-i;
+        while(maze.valid(dx,dy)){
+          dx-=i;
+          dy+=n-i;
+        }
+        point(dx,dy);
+        dx = x+i ;dy = y-n+i;
+        while(maze.valid(dx,dy)){
+          dx+=i;
+          dy+=-n+i;
+        }
+        point(dx,dy);
+      }
     }
     void rowCol(int x,int y){
       int x1 = x - x%maze.side  , y1 = y - y%maze.side;
