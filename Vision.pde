@@ -38,51 +38,58 @@ class Vision{
         }
     }
     void rayTracing(int x,int y){
-      int n = 4;
-      strokeWeight(5);
-      stroke(0,255,0);
-      int[][] arr= new int[(2*n+1)*4+1][2];
-      int idx = 0;
-      for(int i = -n ;i<=n ;i++){
-        int dx = x+n-i , dy = y-i;
+      int n = 10;
+      
+      int[][][] arr= new int[4][n+1][2];
+      
+      for(int i = 0;i<=n;i++){
+        //top right
+        int dx = x+i , dy = y - n + i;
         while(maze.valid(dx,dy)){
-          dx+=n-i;
-          dy-=i;
+          dx+= i;
+          dy+= i-n;
         }
-        arr[idx][0] = dx;
-        arr[idx++][1] = dy;
+        arr[0][i][0] = dx;
+        arr[0][i][1] = dy;
         
-        dx = x-n+i ;dy = y+i;
+        //top left
+        dx = x - i ; dy = y - n + i;
         while(maze.valid(dx,dy)){
-          dx+=-n+i;
-          dy+=i;
+          dx-=i;
+          dy+=i-n;
         }
-        arr[idx][0] = dx;
-        arr[idx++][1] = dy;
+        arr[1][i][0] = dx;
+        arr[1][i][1] = dy;
         
-        dx = x-i ; dy = y+n-i;
+        //dowm right
+        dx = x+i ; dy = y + n - i;
+        while(maze.valid(dx,dy)){
+          dx+= i;
+          dy+= n-i;
+        }
+        arr[2][i][0] = dx;
+        arr[2][i][1] = dy;
+        
+        //down left
+        dx = x - i ; dy = y + n - i;
         while(maze.valid(dx,dy)){
           dx-=i;
           dy+=n-i;
         }
-        arr[idx][0] = dx;
-        arr[idx++][1] = dy;
-        
-        dx = x+i ;dy = y-n+i;
-        while(maze.valid(dx,dy)){
-          dx+=i;
-          dy+=-n+i;
-        }
-        arr[idx][0] = dx;
-        arr[idx++][1] = dy;
+        arr[3][i][0] = dx;
+        arr[3][i][1] = dy;
       }
-      for(int i = 0 ;i<arr.length;i++){
-        // round the points to the closest point on the wall
-        //int dx = arr[i][0] - arr[i][0]%maze.side;
-        //int dy = arr[i][1] - arr[i][1]%maze.side;
-        //if(abs(arr[i][0] - dx) < abs(arr[i][1] - dy))arr[i][0] = dx;
-        //else arr[i][1] = dy;
-        point(arr[i][0],arr[i][1]);
+      
+      strokeWeight(3);
+      for(int j = 0 ;j<4;j++){
+        for(int i = 0 ;i<=n;i++){
+          // round the points to the closest point on the wall
+          //int dx = arr[i][0] - arr[i][0]%maze.side;
+          //int dy = arr[i][1] - arr[i][1]%maze.side;
+          //if(abs(arr[i][0] - dx) < abs(arr[i][1] - dy))arr[i][0] = dx;
+          //else arr[i][1] = dy;
+          point(arr[j][i][0],arr[j][i][1]);
+        }
       }
     }
     void rowCol(int x,int y){
